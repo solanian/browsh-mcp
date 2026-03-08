@@ -25,7 +25,7 @@ AI 에이전트에게 실제 웹 브라우저를 제공하는 Docker 기반 MCP 
 2. 어떤 AI 클라이언트에 MCP 서버를 설정할지 물어봐. 선택지:
    - Claude Code
    - OpenAI Codex CLI
-   - Google Gemini CLI
+   - Google Gemini CLI (Antigravity)
    - opencode
 3. 내 선택에 따라 README의 해당 설정 가이드를 따라 MCP 서버를 설정해.
 4. 설정 후 서버가 동작하는지 확인해:
@@ -82,7 +82,7 @@ codex --mcp-server "docker run -i --rm browsh-mcp"
 </details>
 
 <details>
-<summary><b>Google Gemini CLI</b></summary>
+<summary><b>Google Gemini CLI (Antigravity)</b></summary>
 
 `~/.gemini/settings.json`에 추가:
 

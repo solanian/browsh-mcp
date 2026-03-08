@@ -25,7 +25,7 @@ Read the README.md in this repository to understand browsh-mcp, then help me set
 2. Ask me which AI client I want to configure the MCP server for. Options:
    - Claude Code
    - OpenAI Codex CLI
-   - Google Gemini CLI (Antigravity)
+   - Google Gemini CLI (Antigravity) (Antigravity)
    - opencode
 3. Based on my choice, follow the matching setup guide in the README to configure the MCP server.
 4. After setup, verify the server works by running:
@@ -82,7 +82,7 @@ codex --mcp-server "docker run -i --rm browsh-mcp"
 </details>
 
 <details>
-<summary><b>Google Gemini CLI (Antigravity)</b></summary>
+<summary><b>Google Gemini CLI (Antigravity) (Antigravity)</b></summary>
 
 Add to `~/.gemini/settings.json`:
 
