@@ -1,5 +1,7 @@
 # browsh-mcp
 
+**[English](README.md)** | **[한국어](README_KO.md)**
+
 A Docker-based MCP server that gives AI agents a real web browser. Uses [browsh](https://www.brow.sh/) for text rendering and Firefox CDP for interactive control — no vision model needed.
 
 ## What it does

@@ -1,5 +1,7 @@
 # browsh-mcp
 
+**[English](README.md)** | **[한국어](README_KO.md)**
+
 AI 에이전트에게 실제 웹 브라우저를 제공하는 Docker 기반 MCP 서버입니다. [browsh](https://www.brow.sh/)로 텍스트 렌더링, Firefox CDP로 인터랙티브 제어 — 비전 모델이 필요 없습니다.
 
 ## 주요 기능
