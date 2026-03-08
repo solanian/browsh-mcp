@@ -1,0 +1,5 @@
+.git
+test_all_tools.sh
+*.log
+*.md
+!README.md
