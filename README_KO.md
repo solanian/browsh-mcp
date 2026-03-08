@@ -14,28 +14,31 @@ AI 에이전트에게 실제 웹 브라우저를 제공하는 Docker 기반 MCP 
 
 ## 빠른 시작
 
-### 1. 이미지 빌드
+**아래 프롬프트를 복사해서 AI 코딩 에이전트에 붙여넣으세요.** 에이전트가 Docker 이미지를 빌드하고, 어떤 클라이언트를 설정할지 물어본 뒤, 모든 설정을 자동으로 진행합니다.
 
-```bash
-docker build -t browsh-mcp .
+### 설치 프롬프트
+
 ```
+이 저장소의 README_KO.md를 읽고 browsh-mcp를 이해한 뒤, 설치를 도와줘.
 
-### 2. 동작 확인
-
-```bash
-echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"test","version":"1.0"}}}' \
-  | timeout 60 docker run -i --rm browsh-mcp 2>/dev/null
+1. Docker 이미지를 빌드해: docker build -t browsh-mcp .
+2. 어떤 AI 클라이언트에 MCP 서버를 설정할지 물어봐. 선택지:
+   - Claude Code
+   - OpenAI Codex CLI
+   - Google Gemini CLI
+   - opencode
+3. 내 선택에 따라 README의 해당 설정 가이드를 따라 MCP 서버를 설정해.
+4. 설정 후 서버가 동작하는지 확인해:
+   echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"test","version":"1.0"}}}' | timeout 60 docker run -i --rm browsh-mcp 2>/dev/null
+5. 결과에 serverInfo.name: "browsh-browser"가 포함되어 있으면 설치 완료를 알려줘.
 ```
-
-`serverInfo.name: "browsh-browser"`가 포함된 JSON 응답이 표시되면 정상입니다.
-
-### 3. AI 에이전트에 연결 (아래 참조)
 
 ---
 
 ## AI 클라이언트별 설정 가이드
 
-### Claude Code
+<details>
+<summary><b>Claude Code</b></summary>
 
 `~/.claude/mcp_servers.json` (전역) 또는 `.mcp.json` (프로젝트별)에 추가:
 
@@ -52,16 +55,12 @@ echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":
 
 Claude Code를 재시작하면 `browser` 도구가 자동으로 나타납니다.
 
-**사용 예시:**
-```
-> Use the browser MCP to search Google News for "AI regulation 2026" and summarize the top results.
-```
+</details>
 
----
+<details>
+<summary><b>OpenAI Codex (CLI)</b></summary>
 
-### OpenAI Codex (CLI)
-
-Codex는 설정 파일을 통해 MCP 서버를 지원합니다. `~/.codex/config.json`에 추가:
+`~/.codex/config.json`에 추가:
 
 ```json
 {
@@ -80,16 +79,12 @@ Codex는 설정 파일을 통해 MCP 서버를 지원합니다. `~/.codex/config
 codex --mcp-server "docker run -i --rm browsh-mcp"
 ```
 
-**사용 예시:**
-```
-> Browse https://news.ycombinator.com and list the top 10 posts using the browser MCP.
-```
+</details>
 
----
+<details>
+<summary><b>Google Gemini CLI</b></summary>
 
-### Google Gemini CLI (Antigravity)
-
-`~/.gemini/settings.json`에 MCP 서버 추가:
+`~/.gemini/settings.json`에 추가:
 
 ```json
 {
@@ -102,16 +97,12 @@ codex --mcp-server "docker run -i --rm browsh-mcp"
 }
 ```
 
-**사용 예시:**
-```
-> Use the browser tool to navigate to https://trends24.in and get today's trending topics.
-```
+</details>
 
----
+<details>
+<summary><b>opencode</b></summary>
 
-### opencode
-
-프로젝트의 `.opencode/config.json` 또는 `~/.opencode/config.json`에 추가:
+`.opencode/config.json` 또는 `~/.opencode/config.json`에 추가:
 
 ```json
 {
@@ -130,14 +121,10 @@ codex --mcp-server "docker run -i --rm browsh-mcp"
 opencode mcp add browser -- docker run -i --rm browsh-mcp
 ```
 
-**사용 예시:**
-```
-> Use the browser MCP to go to https://getdaytrends.com and list today's trending topics.
-```
+</details>
 
----
-
-### 일반 MCP 클라이언트 (모든 언어)
+<details>
+<summary><b>일반 MCP 클라이언트 (모든 언어)</b></summary>
 
 서버는 **stdio** (JSON-RPC 2.0)로 통신합니다. 컨테이너를 시작하고 stdin으로 JSON-RPC 메시지를 전송하세요:
 
@@ -150,6 +137,8 @@ docker run -i --rm browsh-mcp
 {"jsonrpc":"2.0","method":"notifications/initialized"}
 {"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"navigate","arguments":{"url":"https://example.com"}}}
 ```
+
+</details>
 
 ---
 

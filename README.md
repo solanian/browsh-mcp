@@ -14,28 +14,31 @@ A Docker-based MCP server that gives AI agents a real web browser. Uses [browsh]
 
 ## Quick Start
 
-### 1. Build the image
+**Copy the prompt below and paste it into your AI coding agent.** The agent will build the Docker image, ask which client you want to configure, and set everything up for you.
 
-```bash
-docker build -t browsh-mcp .
+### Setup Prompt
+
 ```
+Read the README.md in this repository to understand browsh-mcp, then help me set it up.
 
-### 2. Test it works
-
-```bash
-echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"test","version":"1.0"}}}' \
-  | timeout 60 docker run -i --rm browsh-mcp 2>/dev/null
+1. Build the Docker image by running: docker build -t browsh-mcp .
+2. Ask me which AI client I want to configure the MCP server for. Options:
+   - Claude Code
+   - OpenAI Codex CLI
+   - Google Gemini CLI (Antigravity)
+   - opencode
+3. Based on my choice, follow the matching setup guide in the README to configure the MCP server.
+4. After setup, verify the server works by running:
+   echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"test","version":"1.0"}}}' | timeout 60 docker run -i --rm browsh-mcp 2>/dev/null
+5. Confirm the result contains serverInfo.name: "browsh-browser", then let me know setup is complete.
 ```
-
-You should see a JSON response with `serverInfo.name: "browsh-browser"`.
-
-### 3. Connect to your AI agent (see below)
 
 ---
 
 ## Setup Guide by AI Client
 
-### Claude Code
+<details>
+<summary><b>Claude Code</b></summary>
 
 Add to `~/.claude/mcp_servers.json` (global) or `.mcp.json` (per-project):
 
@@ -52,16 +55,12 @@ Add to `~/.claude/mcp_servers.json` (global) or `.mcp.json` (per-project):
 
 Restart Claude Code. The `browser` tools will appear automatically.
 
-**Usage example in Claude Code:**
-```
-> Use the browser MCP to search Google News for "AI regulation 2026" and summarize the top results.
-```
+</details>
 
----
+<details>
+<summary><b>OpenAI Codex (CLI)</b></summary>
 
-### OpenAI Codex (CLI)
-
-Codex supports MCP servers via its config. Add to `~/.codex/config.json`:
+Add to `~/.codex/config.json`:
 
 ```json
 {
@@ -80,16 +79,12 @@ Or pass directly via CLI flag:
 codex --mcp-server "docker run -i --rm browsh-mcp"
 ```
 
-**Usage example:**
-```
-> Browse https://news.ycombinator.com and list the top 10 posts using the browser MCP.
-```
+</details>
 
----
+<details>
+<summary><b>Google Gemini CLI (Antigravity)</b></summary>
 
-### Google Gemini CLI (Antigravity)
-
-Add the MCP server to `~/.gemini/settings.json`:
+Add to `~/.gemini/settings.json`:
 
 ```json
 {
@@ -102,16 +97,12 @@ Add the MCP server to `~/.gemini/settings.json`:
 }
 ```
 
-**Usage example:**
-```
-> Use the browser tool to navigate to https://trends24.in and get today's trending topics.
-```
+</details>
 
----
+<details>
+<summary><b>opencode</b></summary>
 
-### opencode
-
-Add to your project's `.opencode/config.json` or `~/.opencode/config.json`:
+Add to `.opencode/config.json` or `~/.opencode/config.json`:
 
 ```json
 {
@@ -130,14 +121,10 @@ Or add via CLI:
 opencode mcp add browser -- docker run -i --rm browsh-mcp
 ```
 
-**Usage example:**
-```
-> Use the browser MCP to go to https://getdaytrends.com and list today's trending topics.
-```
+</details>
 
----
-
-### Generic MCP Client (any language)
+<details>
+<summary><b>Generic MCP Client (any language)</b></summary>
 
 The server communicates via **stdio** (JSON-RPC 2.0). Start the container and pipe JSON-RPC messages to stdin:
 
@@ -150,6 +137,8 @@ docker run -i --rm browsh-mcp
 {"jsonrpc":"2.0","method":"notifications/initialized"}
 {"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"navigate","arguments":{"url":"https://example.com"}}}
 ```
+
+</details>
 
 ---
 
