@@ -107,6 +107,34 @@ Add the MCP server to `~/.gemini/settings.json`:
 
 ---
 
+### opencode
+
+Add to your project's `.opencode/config.json` or `~/.opencode/config.json`:
+
+```json
+{
+  "mcpServers": {
+    "browser": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "browsh-mcp"]
+    }
+  }
+}
+```
+
+Or add via CLI:
+
+```bash
+opencode mcp add browser -- docker run -i --rm browsh-mcp
+```
+
+**Usage example:**
+```
+> Use the browser MCP to go to https://getdaytrends.com and list today's trending topics.
+```
+
+---
+
 ### Generic MCP Client (any language)
 
 The server communicates via **stdio** (JSON-RPC 2.0). Start the container and pipe JSON-RPC messages to stdin:
